@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:viewModels="using:Reactive_UI_Commands.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:DataType="viewModels:ReactiveUiCommandsViewModel"
+             x:Class="Reactive_UI_Commands.ReactiveUiCommandsSampleView">
+
+	<Design.DataContext>
+		<viewModels:ReactiveUiCommandsViewModel/>
+	</Design.DataContext>
+
+	<Grid RowDefinitions="Auto, Auto, *" ColumnDefinitions="Auto, *">
+
+		<TextBlock Grid.Column="0" Grid.Row="0"
+				   Text="Command:"
+				   FontWeight="Bold"
+				   VerticalAlignment="Center"
+				   Margin="15"/>
+
+
+		<StackPanel Grid.Column="1" Grid.Row="0"
+					Spacing="5" Margin="5">
+
+			<Button Command="{Binding OpenThePodBayDoorDirectCommand}"
+					Content="Open the Pod Bay doors, HAL." Background="Orange" />
+
+			<StackPanel Orientation="Horizontal" Spacing="5">
+				<TextBox Text="{Binding RobotName}" Watermark="Robot Name" />
+				<Button Command="{Binding OpenThePodBayDoorsFellowRobotCommand}"
+						Content="{Binding RobotName, StringFormat='Open the Pod Bay for {0}'}"
+						CommandParameter="{Binding RobotName}" 
+						Background="Orange"/>
+			</StackPanel>
+
+			<Button Command="{Binding OpenThePodBayDoorsAsyncCommand}"
+					Content="Start Pod Bay Opening Sequence" Background="Orange"/>
+		</StackPanel>
+
+		<Separator Grid.Row="1" Grid.ColumnSpan="2"
+				   HorizontalAlignment="Stretch"
+				   Margin="5"
+				   Height="2"
+				   Background="Orange"/>
+
+		<TextBlock Grid.Column="0" Grid.Row="2"
+                   Text="HAL 9000:"
+                   FontWeight="Bold"
+                   Margin="5"
+                   VerticalAlignment="Center"
+				   Foreground="rgba(40, 140, 240, 0.8)"/>
+
+		<Border Grid.Column="1" Grid.Row="2"
+				CornerRadius="10" Margin="5"
+				BorderThickness="1" BorderBrush="{DynamicResource SystemAccentColor}">
+			<Grid ColumnDefinitions="*, Auto">
+				<ItemsControl Margin="5"
+							  ItemsSource="{Binding ConversationLog}"
+							  Foreground="Red"/>
+
+				<Button Grid.Column="1"
+					VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+					Background="Transparent"
+					Command="{Binding ConversationLog.Clear}"
+					Content="❌"/>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>
