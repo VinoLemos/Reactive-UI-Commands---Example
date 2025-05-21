@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Data_Templates.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:model="using:Data_Templates.Models"
+        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="350"
+        x:Class="Data_Templates.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Data_Templates">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <ListBox ItemsSource="{Binding People}"/>
+
+
+	<Window.DataTemplates>
+		<DataTemplate DataType="model:Person">
+			<Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto">
+				<TextBlock Grid.Row="0" Text="First Name: " />
+				<TextBlock Grid.Row="0"
+						   Grid.Column="1"
+						   Text="{Binding FirstName}" />
+				<TextBlock Grid.Row="1" Text="Last Name: " />
+				<TextBlock Grid.Row="1"
+						   Grid.Column="1"
+						   Text="{Binding LastName}" />
+
+				<TextBlock Grid.Row="2" Text="Age: " />
+				<TextBlock Grid.Row="2"
+						   Grid.Column="2"
+						   Text="{Binding Age}" />
+			</Grid>
+		</DataTemplate>
+	</Window.DataTemplates>
+
+</Window>
